@@ -1,4 +1,3 @@
-// Chart dimensions (margin and innerHeight are also used by tooltip.js)
 const width = 1160;
 const height = 440;
 const margin = { top: 20, right: 30, bottom: 70, left: 80 };
@@ -9,8 +8,6 @@ const ALL = 'All';
 const NON_LOVE = 'Non-love Songs';
 const TRANSITION_DURATION = 750;
 
-// Category order as shown in the legend; the stream is stacked in reverse so
-// the top layer matches the first legend item.
 const songCategories = [
   NON_LOVE,
   'Serenade',
@@ -23,14 +20,14 @@ const songCategories = [
 ];
 
 const categoryColors = [
-  '#DCDCDC', // Non-love Songs
-  '#A9D8BC', // Serenade
-  '#C9EAE0', // Pursuit
-  '#F4B4B0', // It's Complicated
-  '#C1879B', // Heartache
-  '#F9D6A5', // Good Riddance
-  '#F3A66F', // Sexual Confidence
-  '#9DC3E7'  // Love Song for the Self
+  '#DCDCDC',
+  '#A9D8BC',
+  '#C9EAE0',
+  '#F4B4B0',
+  '#C1879B',
+  '#F9D6A5',
+  '#F3A66F',
+  '#9DC3E7'
 ];
 
 // Load the data here
@@ -126,7 +123,6 @@ function createViz(data, songCategories) {
       d => d.love_song_category
     );
 
-    // One object per year with every category present (0 if missing)
     const groupedArray = d3.range(minYear, maxYear + 1).map(year => {
       const yearCounts = counts.get(year) || new Map();
       const row = { year: year };
@@ -161,7 +157,6 @@ function createViz(data, songCategories) {
       .domain(model.selectedYears)
       .range([0, innerWidth]);
 
-    // Fixed y-domain so categories and periods can be compared at the same scale
     const y = d3.scaleLinear()
       .domain([0, Math.ceil(d3.max(model.groupedData, d => d.total) / 20) * 20])
       .range([innerHeight, 0]);
@@ -212,14 +207,12 @@ function createViz(data, songCategories) {
       .attr('text-anchor', 'middle')
       .text('Number of songs');
 
-    // Hover elements (helpers from tooltip.js)
     const tooltipLayer = initializeTooltip(svg).attr('class', 'tooltip').style('display', 'none');
     const tooltipLine = initializeTooltipLine(tooltipLayer)
       .attr('stroke-width', 1.5)
       .attr('stroke-dasharray', '5,4');
     const tooltipCard = tooltipLayer.append('g').attr('class', 'tooltip-card');
 
-    // Transparent overlay that receives the mouse events
     const overlay = g.append('rect')
       .attr('class', 'overlay')
       .attr('width', innerWidth)
@@ -259,8 +252,6 @@ function createViz(data, songCategories) {
     const visible = getVisibleCategories(model);
     const isSingle = model.selectedCategory !== ALL;
 
-    // Hidden categories keep their path but collapse to 0, so the selected
-    // category settles onto the baseline and every change can be animated.
     const filteredData = model.groupedData.map(row => {
       const filtered = { year: row.year };
       model.songCategories.forEach(category => {
@@ -273,10 +264,8 @@ function createViz(data, songCategories) {
 
     const [startYear, endYear] = model.selectedYears;
     const span = endYear - startYear;
-    // A single selected year still needs a non-empty domain
     viz.x.domain(span > 0 ? [startYear, endYear] : [startYear - 0.5, endYear + 0.5]);
 
-    // Always label the first and last selected year, dropping ticks too close to them
     const minGap = Math.max(1, span / 30);
     const innerTicks = viz.x.ticks(Math.max(1, Math.min(span, 12)))
       .filter(year => Number.isInteger(year) && year - startYear >= minGap && endYear - year >= minGap);
@@ -297,7 +286,6 @@ function createViz(data, songCategories) {
     viz.xAxisG.transition(t).call(viz.xAxis);
     viz.yAxisG.transition(t).call(viz.yAxis);
 
-    // Dashed gridlines are shown in the single-category view
     viz.grid.transition(t)
       .style('opacity', isSingle ? 1 : 0)
       .call(d3.axisLeft(viz.y)
@@ -329,7 +317,6 @@ function createViz(data, songCategories) {
     viz.tooltipLayer.style('display', null);
     viz.tooltipLine.attr('x1', xPos).attr('x2', xPos);
 
-    // Lines of the tooltip: [label, value, color]
     let lines;
     if (model.selectedCategory === ALL) {
       lines = model.songCategories.map(c => [c, row[c], viz.color(c)]);
@@ -348,7 +335,6 @@ function createViz(data, songCategories) {
     const headerHeight = 62;
     const cardHeight = headerHeight + lines.length * lineHeight + padding / 2;
 
-    // Show the card to the right of the guide line unless it would overflow
     const placeRight = xPos + 20 + cardWidth <= innerWidth;
     const cardX = placeRight ? xPos + 20 : xPos - 20 - cardWidth;
 
