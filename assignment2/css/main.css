@@ -1,0 +1,226 @@
+@import url('https://fonts.googleapis.com/css2?family=Oxygen:wght@400;700&display=swap');
+
+html {
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
+}
+*, ::after, ::before {
+  box-sizing: inherit;
+}
+body {
+  margin: 0;
+  background-color: #FDF9F5;
+  font-family: 'Oxygen', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #45343D;
+  fill: #45343D;
+}
+h1, h2, h3, h4 {
+  font-weight: 700;
+}
+h1 {
+  margin: 60px 0 5px;
+  font-size: 45px;
+}
+h2 {
+  margin: 60px 0 20px;
+  font-size: 35px;
+}
+h3 {
+  margin: 0 0 10px;
+  font-size: 18px;
+}
+h4 {
+  margin: 0 0 10px;
+  font-size: 15px;
+}
+a {
+  color: #45343D;
+}
+
+.hidden {
+  display: none;
+}
+
+/* Introduction */
+.subtitle {
+  font-weight: 700;
+}
+.intro {
+  margin: 30px 0;
+}
+
+/* Filters */
+.filters {
+  margin: 70px 0 50px;
+}
+.filters label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+.filters select {
+  -webkit-appearance: none;
+  appearance: none;
+  padding: 9px 40px 9px 14px;
+  width: 100%;
+  max-width: 280px;
+  font-family: 'Oxygen', sans-serif;
+  font-size: 16px;
+  color: #45343D;
+  background-color: #FFFFFF;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9'%3E%3Cpath d='M1 1l6 6 6-6' fill='none' stroke='%2345343D' stroke-width='2'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  border: 1px solid #C1B9BA;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.filters select:focus {
+  outline: none;
+  border-color: #45343D;
+}
+.filters .rs-container {
+  font-family: 'Oxygen', sans-serif;
+}
+.filters .rs-tooltip {
+  top: 60px;
+  color: #45343D;
+  font-weight: 400;
+  background-color: #FFFFFF;
+  border: 1px solid #C1B9BA;
+  border-radius: 4px;
+}
+.filters .rs-container .rs-scale span ins {
+  margin-top: 29px;
+  font-size: 13px;
+  color: #45343D;
+}
+.filters .rs-container .rs-scale span::before {
+  background-color: #45343D;
+}
+.filters .rs-container .rs-bg {
+  background-color: #C1B9BA;
+  border-color: #C1B9BA;
+}
+.filters .rs-container .rs-selected {
+  background-color: #45343D;
+  border-color: #45343D;
+}
+.filters .rs-container .rs-scale {
+  display: flex;
+}
+.filters .rs-container .rs-scale span {
+  float: none;
+}
+@media screen and (max-width: 1250px) {
+  .filter {
+    margin-bottom: 30px;
+  }
+  .slider-wrapper {
+    margin: 0 30px;
+    width: calc(100% - 80px);
+  }
+}
+
+/* Stream graph */
+#viz svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+#viz .axis text {
+  font-family: 'Oxygen', sans-serif;
+  font-size: 14px;
+  fill: #45343D;
+}
+#viz .axis path,
+#viz .axis line {
+  stroke: #45343D;
+}
+#viz .axis-label {
+  font-size: 15px;
+  font-weight: 700;
+}
+#viz .grid line {
+  stroke: #C1B9BA;
+  stroke-dasharray: 4,4;
+}
+#viz .grid path {
+  display: none;
+}
+#viz .layer {
+  stroke: none;
+}
+#viz .overlay {
+  cursor: crosshair;
+}
+#viz .tooltip {
+  pointer-events: none;
+}
+#viz .tooltip-bg {
+  fill: #FFFFFF;
+  stroke: #E4DEDF;
+  filter: drop-shadow(0 2px 6px rgba(69, 52, 61, 0.18));
+}
+#viz .tooltip-card text {
+  font-size: 13px;
+}
+#viz .tooltip-card .tooltip-title {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+/* Legend */
+.legend ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 10px 12px;
+  margin: 30px 0 50px 20px;
+  padding-left: 0;
+  font-size: 15px;
+  list-style: none;
+}
+.legend ul li {
+  display: flex;
+  align-items: center;
+  transition: color 0.75s;
+}
+.legend ul .legend-color {
+  margin-right: 10px;
+  width: 20px;
+  height: 20px;
+  background-color: #E4E0E0;
+  transition: background-color 0.75s;
+}
+.legend ul li.inactive {
+  color: #9A9093;
+}
+.legend ul li.active {
+  font-weight: 700;
+}
+@media screen and (max-width: 768px) {
+  .legend ul {
+    flex-direction: column;
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+/* Sources */
+.sources {
+  margin: 100px 0;
+}
+.sources-label {
+  font-weight: 700;
+}
+.sources ul {
+  margin: 6px 0;
+  padding-left: 30px;
+}
+.sources ul li {
+  margin: 3px 0;
+}
